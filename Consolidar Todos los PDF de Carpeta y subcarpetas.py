@@ -24,13 +24,15 @@ pdfMerger = PdfMerger()
  # Añadir cada archivo PDF al objeto merger 
 for filename in pdfFiles: 
     with open(filename, 'rb') as f: 
-
         pdf_reader = PdfReader(f)
-
         Number_of_pages = len(pdf_reader.pages) -1
-
         pdfMerger.append(pdf_reader , pages=(0, Number_of_pages + 1 ))
 
+for i in range(len(pdfFiles)):
+    #pdfMerger.add_outline_item(title=str(pdfFiles[i]), pagenum=i)
+    #Agregar un marcador de página para cada archivo PDF sin el path
+    pdfMerger.add_outline_item(title=str(os.path.basename(pdfFiles[i])), pagenum=i)
+
  # Escribir el contenido del merger en un nuevo archivo PDF 								  
-with open('resultado_merge_alfabetico.pdf', 'wb') as f: 
+with open('Consolidado IVA IIBB.pdf', 'wb') as f: 
     pdfMerger.write(f)
