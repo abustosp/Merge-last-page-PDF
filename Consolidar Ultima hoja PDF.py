@@ -5,22 +5,19 @@ import shutil
 
 # Preguntar por la ruta de la carpeta
 Carpeta = askdirectory(title='Seleccionar carpeta')
+os.chdir(Carpeta) 
 
-# especificar la ruta de la carpeta
-Fp1 = Carpeta + "/RI"
-Fp2 = Carpeta + "/M"
+# Obtener todos los archivos PDF de la carpeta Folder y sus subcarpetas
+pdfFiles = []
+for foldername, subfolders, filenames in os.walk(Carpeta):
+    for filename in filenames:
+        if filename.endswith('.pdf'):
+            pdfFiles.append(os.path.join(foldername, filename))
 
-#Listar todos los archivos de las carpetas 'RI' y 'M' 
-# listar todos los archivos pdf en la carpeta
-pdf_files1 = [f for f in os.listdir(Fp1) if f.endswith(".pdf")]
-pdf_files2 = [f for f in os.listdir(Fp2) if f.endswith(".pdf")]
+#pdfFiles.sort(key=str.lower) # Ordenar los archivos alfabéticamente 
 
-#Agregar el Path de cada archivo
-pdf_files1 = [Fp1 + "/" + f for f in pdf_files1]
-pdf_files2 = [Fp2 + "/" + f for f in pdf_files2]
-
-#unir las listas pdf_files1 y pdf_files2
-pdf_files = pdf_files1 + pdf_files2
+#Ordenar los archivos alfabéticamente sin tener en cuenta el path
+pdfFiles.sort(key=os.path.basename)
 
 #ordenar pdf_files por nombre
 #pdf_files.sort()
@@ -32,7 +29,7 @@ if not os.path.exists(temp):
     os.makedirs(temp)
 
 #Copiar los archivos de pdf_files a la carpeta Temp
-for pdf in pdf_files:
+for pdf in pdfFiles:
     shutil.copy(pdf, temp)
 
 #Listar todos los archivos de la carpeta Temp en pdf_files con el path completo
