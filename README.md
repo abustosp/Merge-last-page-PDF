@@ -23,10 +23,11 @@ Los pasos para ejecutar el Script suele ser el siguiente:
 
 4.  Activar el entorno virtual (depdende del sistema operativo):
 
+    - Windows
     ```Console Windows
     EntornoVirtual\Scripts\activate
     ```
-
+    - Linux/Mac
     ```Console Linux
     source EntornoVirtual/bin/activate 
     ```
