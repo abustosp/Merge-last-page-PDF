@@ -39,5 +39,5 @@ for filename in pdfFiles:
         Primer_página += Number_of_pages +1
     
  # Escribir el contenido del merger en un nuevo archivo PDF 								  
-with open('Consolidado IVA IIBB.pdf', 'wb') as f: 
+with open('Consolidado Total.pdf', 'wb') as f: 
     pdfMerger.write(f)

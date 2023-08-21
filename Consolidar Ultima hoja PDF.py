@@ -56,5 +56,5 @@ for pdf in pdf_files:
 shutil.rmtree(temp)
 
 # escribir el archivo pdf resultante
-with open(Carpeta + '/Consolidado Libros Compras Ventas.pdf', 'wb') as fout:
+with open(Carpeta + '/Consolidado última Hoja.pdf', 'wb') as fout:
         merger.write(fout)
