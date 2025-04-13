@@ -25,14 +25,15 @@ pdfFiles.sort(key=os.path.basename)
 merger = PdfMerger()
 
 # Agregar la última página de cada archivo PDF al merger
+merged_files = []
 for pdf in pdfFiles:
     with open(pdf, 'rb') as f:
         pdf_reader = PdfReader(f)
         number_of_pages = len(pdf_reader.pages) - 1
         
         # Leer el contenido de la primera página con pdfplumber
-        with pdfplumber.open(f) as pdf:
-            primera_pagina = pdf.pages[0]
+        with pdfplumber.open(f) as pdfp:
+            primera_pagina = pdfp.pages[0]
             texto = primera_pagina.extract_text()
             
             # Excluir los archivos que contienen el patrón de exclusión
@@ -41,6 +42,7 @@ for pdf in pdfFiles:
         
         # Agregar la última página del archivo al merger
         merger.append(pdf_reader, pages=(number_of_pages, (number_of_pages + 1)))
+        merged_files.append(pdf)
 
 # Escribir el archivo PDF resultante en memoria
 output = io.BytesIO()
@@ -50,3 +52,7 @@ output.seek(0)
 # Guardar el archivo PDF en la carpeta seleccionada
 with open(os.path.join(Carpeta, 'Consolidado última Hoja.pdf'), 'wb') as fout:
     fout.write(output.read())
+    
+with open(os.path.join(Carpeta, 'Archivos Procesados.txt'), 'w') as f:
+    for pdf in merged_files:
+        f.write(str(pdf) + '\n')
